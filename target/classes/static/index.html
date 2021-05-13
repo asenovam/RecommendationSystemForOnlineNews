@@ -1,0 +1,101 @@
+
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Getting Started: Serving Web Content</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+
+        <style>
+            body {
+                color: green;
+                font-family:"Times New Roman", Times, serif;
+                font-size: 23px;
+
+            }
+            a {
+                font-family: "Times New Roman", Times, serif;
+                font-size: 23px;
+                color: green;
+
+            }
+
+            input[type=submit]:hover { 
+                background-color:  #ccccff;
+            }
+            .right {
+                border-radius: 5px;
+                background-color:   #ccccff;
+            }
+
+
+            .center {
+                border-radius: 5px;
+                background-color:  #ccccff; 
+            }
+
+            .left {
+                border-radius: 5px;
+                background-color: #ffffff;
+            }
+
+            .box {
+                display: flex;
+            }
+            .box > div {
+                width: 33%;
+                padding: 5px;
+            }
+
+            @media screen and (max-width: 400px)  {
+                .box {
+                    flex-direction: column-reverse;
+                }
+                .box > div {
+                    width: 100%;
+                }
+            }
+
+        </style>    
+
+        <script type="text/javascript">
+            (function () {
+
+                var img = document.getElementById('container').firstChild;
+                img.onload = function () {
+                    if (img.height > img.width) {
+                        img.height = '100%';
+                        img.width = 'auto';
+
+                    }
+                };
+
+            }());
+        </script>
+
+    </head>
+
+    <body>
+
+        <div class = "box"  style="text-align: center">  
+            <div class="left" id="container" style="padding-top:0px">
+                <img src="" alt="" width="300" height="300" style="object-position:center"/>
+                <img src="C:\Users\mar_9\Documents\NetBeansProjects\MonitoringGroup\src\main\resources\static\Capture1.JPG" alt="2.PNG" style="width:300px">  
+            </div>
+            <div class="center"  style="padding-top: 190px">
+                <div> <a href="/login" style="font-size:150%" width="300" height="300" > SIGN IN</a></div>
+                <div> <br > </div>
+                <div><a href="/register" style="font-size:150%;" width="300" height="300" >REGISTER</a></div>
+                <div> <br > </div>
+                <div><iframe 
+                             width="300" height="300" frameborder="0"  allowfullscreen
+                             src="https://www.youtube.com/embed/watch?v=aLMfR9ty0noautoplay=1"
+                             ></iframe>
+
+                </div> 
+                <div class="right" >
+            
+                </div>
+
+                </body>
+                </html>

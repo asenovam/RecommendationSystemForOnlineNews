@@ -1,0 +1,243 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Getting Started: Handling Form Submission</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+        <style>
+            h1 {
+                font-family: Baskerville, "Baskerville Old Face", "Hoefler Text";
+                font-size: 40px;
+                color: goldenrod;
+                background-color: white;
+                font-weight: bold;
+            }
+
+            p {
+                font-family: "Times New Roman", Times, serif;
+
+
+            }
+            span{ font-family: "Times New Roman", Times, serif;
+                  font-size: 18px;
+                  color: black;
+
+            }
+            div{
+                font-family: "Times New Roman", Times, serif;
+                font-size: 18px;
+
+            }
+            th{
+                font-family: "Times New Roman", Times, serif;
+                font-size: 18px;
+
+
+
+
+            }
+            td{
+                font-family: "Times New Roman", Times, serif;
+                font-size: 18px;
+
+            }
+
+            .checked {
+                color: orange;
+            }    
+
+            input[type=text], select {
+                font-family: "Times New Roman", Times, serif;
+                width: 100%;
+                padding: 12px 20px;
+                margin: 8px 0;
+                display: inline-block;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+
+            input[type=submit], input[type=reset], #editRssFeedsId  {
+                font-family: "Times New Roman", Times, serif;
+                font-size: 18px;
+                width: 100%;
+                background-color: #4c008c;
+                color: white;
+                padding: 12px 20px;
+                margin: 8px 0;
+                border: none;
+                border-radius: 2px;
+                cursor: pointer;
+            }
+
+            input[type=submit]:hover { 
+                background-color:  darkgreen;
+            }
+
+            .right {
+                border-radius: 5px;
+                background-color: #f2f2f2;
+            }
+
+            .center {
+                border-radius: 5px;
+                background-color: #E6E6FA; 
+            }
+
+            .left {
+                border-radius: 5px;
+                background-color: #f2f2f2;
+            }
+
+            .box {
+                display: flex;
+            }
+            .box > div {
+                width: 33%;
+                padding: 5px;
+            }
+
+            @media screen and (max-width: 400px)  {
+                .box {
+                    flex-direction: column-reverse;
+                }
+                .box > div {
+                    width: 100%;
+                }
+            }
+
+            .centera {
+                margin: auto;
+                width: 30%;
+                padding: 10px;
+            } 
+            #rssFeedCategoriesSelect option:nth-child(even){background-color: #f2f2f2;}
+
+
+            input[type="radio"] {
+                display: none;
+            }   
+        </style>   
+    </head>
+    <body>
+        <h1  style="text-align: center;">THE POWER TO BE INFORMED</h1>
+        <p th:text="'Hello : ' + ${userDashboard.userName}" />
+
+
+        <div class = "box">  
+            <div class="left">
+                <p style="color:blueviolet; font-size: 25px;  font-weight: bold;">Add New Rss Feed</p>
+                <p style="color:red;" th:text="'' + ${userRegisterRssFeedBean.errorMessage}" />
+
+                <form th:object="${userRegisterRssFeedBean}" action="userdashboard.html" th:action="@{/addRssFeed}" method="post">
+                    <input type="hidden" th:field="*{nickname}" th:value="${nickname}"/>
+                    <p>
+                        <label for="rssFeedCategoriesSelect">Please, select the categories the RSS Feed belongs to:</label>
+                        <br />
+                        <select id="rssFeedCategoriesSelect" th:field="*{rssFeedCategories}"   style="width: 350px; height: 280px; color: darkgreen; font-size: 18px; font-stretch:50%; ;font-family: "Times New Roman", Times, serif"; multiple="multiple" >
+                                <option th:each="rssFeedCategory : ${availableRssFeedCategories}"
+                                th:value="${rssFeedCategory}" 
+                                th:text="${rssFeedCategory.label}" >
+                                Rss Feed category
+                            </option>
+                        </select>
+                        <br />
+                    </p>
+                    <p>Add RSS Feed URL: <input type="text" font-size:18px; th:field="*{rssFeedUrl}" /></p>
+                    <p>
+                    <div class="rating">
+                        <span>Please, select the rate for the category:</span>
+                        <label class="fa fa-star">
+                            <input type="radio"  th:field="*{rssFeedRate}" value="1" />
+                        </label>
+                        <label class="fa fa-star">
+                            <input type="radio"  th:field="*{rssFeedRate}"value="2" />
+                        </label>
+                        <label class="fa fa-star">
+                            <input type="radio"  th:field="*{rssFeedRate}" value="3" />
+                        </label>
+                        <label class="fa fa-star">
+                            <input type="radio"  th:field="*{rssFeedRate}" value="4" />
+                        </label>
+                        <label class="fa fa-star">
+                            <input type="radio"  th:field="*{rssFeedRate}" value="5" />
+                        </label>
+                    </div>
+
+                    </p>    
+                    <input type="submit"  />
+
+                </form>
+
+                <div class="centera">
+                    <a id="editRssFeedsId" th:href="@{/editRssFeeds(userNickname=${userRegisterRssFeedBean.nickname})}">Edit RSS Feeds</a>
+                </div>
+            </div>
+            <div class="center">
+                <table>
+                  <thead>
+                        <tr>
+                            <th  style="color:darkmagenta; font-size: 25px; padding-top: 23px "> Category </th>
+                            <th  style="color:darkmagenta; font-size: 25px;  padding-top: 23px; padding-left: 25px"> Number of new news </th>
+                        </tr>
+                  </thead>
+                  <tbody>
+                        <tr></tr>
+                        <tr></tr>
+                        <tr></tr>
+                    
+                    <tr th:if="${userDashboard.userRssFeedsCategories.empty}">
+                        <td colspan="2"> No Rss Feed categories yet</td>
+                    </tr>
+                    <tr th:each="rssFeedCategoryBean : ${userDashboard.userRssFeedsCategories}">
+                        <td><span th:text="${rssFeedCategoryBean.rssFeedCategory.label}"> Rss Feed Category </span></td>
+                        <td style="padding-left: 25px"><a th:href="@{/category/news(nickname=${userRegisterRssFeedBean.nickname},category=${rssFeedCategoryBean.rssFeedCategory.toString()},page=0,size=10)}">
+                                <span style="color: black;" th:text="${rssFeedCategoryBean.numberOfNewNews}"> Number of new news </span></a></td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+            <div class="right">
+                <p style="color:darkviolet;  font-weight: bold;  font-size: 25px;">Recommended RSS Feeds for you</p>
+                <form th:object="${userRegisterRssFeedBean}" action="userdashboard.html" th:action="@{/reccommendations}" method="post">
+                    <input type="hidden" th:field="*{nickname}" th:value="${nickname}"/>
+                    <p><input type="submit" value="Show My Recommendations" /></p>
+                </form>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th  style="color:green;">  </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:if="${userDashboard.recRssFeedUrls.empty}">
+                            <td colspan="2"></td>
+                        </tr>
+                        <tr th:each="rssFeedUrl : ${userDashboard.recRssFeedUrls}">
+                            <td><span th:text="${rssFeedUrl}"> Rss Feed Url </span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </body>
+
+    <script>
+        $(document).ready(function () {
+            $('.rating label').click(function () {
+                $('.rating label').removeClass('checked');
+                var radioValue = $("input[name='rssFeedRate']:checked").val();
+                console.log("radioValue: " + radioValue);
+                $(".rating label:lt(" + radioValue + ")").addClass('checked');
+                $(this).addClass('checked');
+            });
+        });
+    </script>
+
+</html>

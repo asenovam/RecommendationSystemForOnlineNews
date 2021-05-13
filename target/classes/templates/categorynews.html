@@ -1,0 +1,69 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Category news list</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <style type="text/css">
+
+            #rssfeeds {
+                font-family: "Times New Roman", Times, serif;
+                border-collapse: collapse;
+                width: 80%;
+                margin:auto;
+            }
+
+            #rssfeeds td, #rssfeeds th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #rssfeeds tr:nth-child(even){background-color: #f2f2f2;}
+
+            #rssfeeds tr:hover {background-color: #ddd;}
+
+            #rssfeeds th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #4c008c;
+                color: white;
+            }
+
+
+        </style>
+
+        <script>
+                function goBack() {
+                    window.history.back();
+                }
+            </script>
+</head>
+<body>
+    
+    <div style="border-spacing: 10px; justify-content: center;  align-items: center;  display: flex;">
+        <a th:href="@{/userdashboard(nickname=${#request.getParameter('nickname')})}">Back</a>
+    </div>
+    
+    </br>
+    </br>
+
+    <table id="rssfeeds">
+      <tr>
+          <th><span th:text="${#request.getParameter('category')}" /></th>
+          <th>Date of publication</th>
+      </tr>
+      <tr th:each="item : ${userCategoryNewsBean.news}">
+          <td><a th:href="@{/category/readNews(nickname=${#request.getParameter('nickname')}, newsUrl=${item.rssFeedItem.guid}, newsGuid=${item.rssFeedItem.guid}, rssFeedUrl=${item.rssFeedUrl})}" th:text="${item.rssFeedItem.title}"  target="_blank" ></a></td>
+          <td><span th:text="${item.rssFeedItem.pubDate}" /></td>
+      </tr>
+    </table>
+    
+    <div th:if="${userCategoryNewsBean.showNextBtn}" style="border-spacing: 10px; justify-content: center;  align-items: center;  display: flex;">
+        <a th:href="@{/category/news(nickname=${#request.getParameter('nickname')},category=${#request.getParameter('category')},page=${userCategoryNewsBean.nextPage},size=10)}"
+            th:text="More"></a>
+    </div>
+    
+</body>
+</html>

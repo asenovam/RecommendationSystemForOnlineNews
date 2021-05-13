@@ -1,0 +1,12 @@
+{
+    "elements": {},
+    "attributes": {
+        "width": {
+            "context": "a"
+        },
+        "style\"padding-right:2px\"": {
+            "context": "div"
+        },
+        "family-font": {}
+    }
+}

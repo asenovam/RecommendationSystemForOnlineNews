@@ -1,0 +1,69 @@
+
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Rss feeds edit</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <style type="text/css">
+
+            #rssfeeds {
+                font-family: "Times New Roman", Times, serif;
+                border-collapse: collapse;
+                width: 80%;
+                margin:auto;
+            }
+
+            #rssfeeds td, #rssfeeds th {
+                border: 1px solid #ddd;
+                padding: 8px;
+            }
+
+            #rssfeeds tr:nth-child(even){background-color: #f2f2f2;}
+
+            #rssfeeds tr:hover {background-color: #ddd;}
+
+            #rssfeeds th {
+                padding-top: 12px;
+                padding-bottom: 12px;
+                text-align: left;
+                background-color: #4c008c;
+                color: white;
+            }
+
+
+        </style>
+
+        <script>
+            function goBack() {
+                window.history.back();
+            }
+        </script>
+    </head>
+    <body>
+
+        <div style="border-spacing: 10px; justify-content: center;  align-items: center;  display: flex;">
+            <a th:href="@{/userdashboard(nickname=${#request.getParameter('userNickname')})}">Back</a>
+        </div>
+
+        <div style="border-spacing: 10px; justify-content: center;  align-items: center;  display: flex;">
+            <p style="color:green;" th:text="'' + ${message}" />
+        </div>
+
+        </br>
+        </br>
+
+        <table id="rssfeeds">
+            <tr>
+                <th>Rss Feed</th>
+                <th>Remove</th>
+            </tr>
+            <tr th:each="item : ${userFeeds}">
+                <td><span th:text="${item.rssFeedUrl}" /></td>
+                <td><a th:href="@{/removeRssFeed(rssFeedUrl=${item.rssFeedUrl}, userNickname=${#request.getParameter('userNickname')})}" th:text="Remove"></a></td>
+            </tr>
+        </table>
+
+
+    </body>
+</html>
